@@ -61,12 +61,10 @@
             --button-hover: var(--button-hover-dark);
         }
         
-        .top-controls {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+        .bottom-controls {
             display: flex;
             gap: 15px;
+            margin-top: 20px;
         }
 
         .main-content {
@@ -205,11 +203,6 @@
 </head>
 <body class="light-mode">
 
-    <div class="top-controls">
-        <button id="lang-toggle" class="icon-button" title="Switch language"></button>
-        <button id="theme-toggle" class="icon-button">🌙</button>
-    </div>
-
     <div class="main-content">
         <h1 data-lang-sv="Tärningskast" data-lang-en="Dice Roll">Tärningskast</h1>
         <div id="dice-container" class="dice-container"></div>
@@ -227,7 +220,10 @@
             </select>
             <button id="roll-button" data-lang-sv="🎲 Kasta" data-lang-en="🎲 Roll">🎲 Kasta</button>
         </div>
-    </div>
+        <div class="bottom-controls">
+            <button id="lang-toggle" class="icon-button" title="Switch language"></button>
+            <button id="theme-toggle" class="icon-button">🌙</button>
+        </div>
 
     <script>
         const diceContainer = document.getElementById('dice-container');
@@ -238,13 +234,13 @@
         const totalSumDiv = document.getElementById('total-sum');
 
         const faceClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
-        const faceTransforms = {
-            1: 'rotateX(0deg) rotateY(0deg)',
-            2: 'rotateX(-180deg) rotateY(0deg)',
-            3: 'rotateX(0deg) rotateY(-90deg)',
-            4: 'rotateX(0deg) rotateY(90deg)',
-            5: 'rotateX(90deg) rotateY(0deg)',
-            6: 'rotateX(-90deg) rotateY(0deg)'
+        const faceRotations = {
+            1: { x: 0, y: 0 },
+            2: { x: -180, y: 0 },
+            3: { x: 0, y: -90 },
+            4: { x: 0, y: 90 },
+            5: { x: 90, y: 0 },
+            6: { x: -90, y: 0 }
         };
 
         const translations = {
@@ -295,28 +291,36 @@
         }
 
         function setDiceValue(dice, value) {
-            dice.style.transform = faceTransforms[value];
+            const rotation = faceRotations[value];
+            dice.style.transform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`;
             dice.dataset.value = value;
         }
 
         function rollDice() {
             const diceElements = diceContainer.querySelectorAll('.dice');
             let totalSum = 0;
-            rollButton.disabled = true; // Disable button during roll
+            rollButton.disabled = true;
 
             diceElements.forEach(dice => {
                 const randomValue = Math.floor(Math.random() * 6) + 1;
-                const randomX = (Math.floor(Math.random() * 8) + 4) * 360;
-                const randomY = (Math.floor(Math.random() * 8) + 4) * 360;
-                
-                dice.style.transform = `rotateX(${randomX}deg) rotateY(${randomY}deg)`;
-                
+                totalSum += randomValue;
+
+                const finalRotation = faceRotations[randomValue];
+                const randomXRotations = (Math.floor(Math.random() * 4) + 4) * 360;
+                const randomYRotations = (Math.floor(Math.random() * 4) + 4) * 360;
+
+                const newX = finalRotation.x + randomXRotations;
+                const newY = finalRotation.y + randomYRotations;
+
+                dice.style.transition = 'transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                dice.style.transform = `rotateX(${newX}deg) rotateY(${newY}deg)`;
+
                 setTimeout(() => {
+                    dice.style.transition = 'transform 0s';
                     setDiceValue(dice, randomValue);
                 }, 1500);
-                totalSum += randomValue;
             });
-            
+
             setTimeout(() => {
                 if (diceElements.length > 1) {
                     const sumText = translations['Summa:'][currentLang];
@@ -324,7 +328,7 @@
                 } else {
                     totalSumDiv.textContent = '';
                 }
-                rollButton.disabled = false; // Re-enable button
+                rollButton.disabled = false;
             }, 1550);
         }
 
