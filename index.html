@@ -6,224 +6,672 @@
     <title>Dice Roller</title>
     <style>
         :root {
-            --bg-color-light: #f4f4f9;
-            --text-color-light: #333;
-            --dice-bg-light: #fff;
-            --dice-border-light: #ddd;
-            --dot-color-light: #000;
-            --button-bg-light: #007bff;
-            --button-text-light: #fff;
-            --button-hover-light: #0056b3;
+            /* Light theme palette */
+            --bg-gradient-light: radial-gradient(circle at 50% 10%, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%);
+            --card-bg-light: rgba(255, 255, 255, 0.85);
+            --card-border-light: rgba(226, 232, 240, 0.9);
+            --felt-bg-light: radial-gradient(ellipse at 50% 40%, #ffffff 0%, #f8fafc 55%, #e9eef5 100%);
+            --felt-border-light: rgba(203, 213, 225, 0.7);
+            --felt-shadow-light: inset 0 2px 10px rgba(15, 23, 42, 0.04), 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+            --text-primary-light: #0f172a;
+            --text-secondary-light: #64748b;
+            
+            --dice-face-bg-light: radial-gradient(120% 120% at 30% 20%, #ffffff 0%, #fcfdfe 50%, #e5ebf3 100%);
+            --dice-face-border-light: rgba(255, 255, 255, 0.95);
+            --dice-face-shadow-light: inset 0 1px 2px #ffffff, inset 0 -2px 5px rgba(15, 23, 42, 0.09), 0 0 1px rgba(15, 23, 42, 0.2);
+            --dot-color-light: #1e293b;
+            --dot-shadow-light: inset 0 2px 3px rgba(0, 0, 0, 0.7), 0 1px 1px rgba(255, 255, 255, 0.9);
+            --dot-accent-light: radial-gradient(circle at 35% 35%, #ef4444 0%, #dc2626 50%, #991b1b 100%);
+            --dice-shadow-light: rgba(15, 23, 42, 0.22);
 
-            --bg-color-dark: #121212;
-            --text-color-dark: #f1f1f1;
-            --dice-bg-dark: #2a2a2a;
-            --dice-border-dark: #555;
-            --dot-color-dark: #fff;
-            --button-bg-dark: #bb86fc;
-            --button-text-dark: #000;
-            --button-hover-dark: #9a67d6;
+            --button-bg-light: linear-gradient(135deg, #4338ca 0%, #6366f1 100%);
+            --button-text-light: #ffffff;
+            --button-hover-light: linear-gradient(135deg, #3730a3 0%, #4f46e5 100%);
+            --button-shadow-light: 0 10px 20px -5px rgba(79, 70, 229, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            
+            --control-bg-light: #ffffff;
+            --control-border-light: #cbd5e1;
+            --sum-bg-light: rgba(255, 255, 255, 0.9);
+            --sum-border-light: #e2e8f0;
+
+            /* Dark theme palette */
+            --bg-gradient-dark: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 60%, #020617 100%);
+            --card-bg-dark: rgba(30, 41, 59, 0.65);
+            --card-border-dark: rgba(255, 255, 255, 0.08);
+            --felt-bg-dark: radial-gradient(ellipse at 50% 40%, #1e293b 0%, #141d2e 60%, #0b1120 100%);
+            --felt-border-dark: rgba(255, 255, 255, 0.06);
+            --felt-shadow-dark: inset 0 2px 14px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            --text-primary-dark: #f8fafc;
+            --text-secondary-dark: #94a3b8;
+
+            --dice-face-bg-dark: radial-gradient(120% 120% at 30% 20%, #334155 0%, #1e293b 60%, #111827 100%);
+            --dice-face-border-dark: rgba(255, 255, 255, 0.15);
+            --dice-face-shadow-dark: inset 0 1px 2px rgba(255, 255, 255, 0.25), inset 0 -2px 6px rgba(0, 0, 0, 0.5), 0 0 1px rgba(0, 0, 0, 0.7);
+            --dot-color-dark: #f1f5f9;
+            --dot-shadow-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.5), 0 0 6px rgba(241, 245, 249, 0.4);
+            --dot-accent-dark: radial-gradient(circle at 35% 35%, #f87171 0%, #ef4444 60%, #b91c1c 100%);
+            --dice-shadow-dark: rgba(0, 0, 0, 0.65);
+
+            --button-bg-dark: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --button-text-dark: #ffffff;
+            --button-hover-dark: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --button-shadow-dark: 0 10px 20px -5px rgba(99, 102, 241, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+            --control-bg-dark: #1e293b;
+            --control-border-dark: #334155;
+            --sum-bg-dark: rgba(30, 41, 59, 0.9);
+            --sum-border-dark: rgba(255, 255, 255, 0.1);
+        }
+
+        .light-mode {
+            --bg-gradient: var(--bg-gradient-light);
+            --card-bg: var(--card-bg-light);
+            --card-border: var(--card-border-light);
+            --felt-bg: var(--felt-bg-light);
+            --felt-border: var(--felt-border-light);
+            --felt-shadow: var(--felt-shadow-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            
+            --dice-face-bg: var(--dice-face-bg-light);
+            --dice-face-border: var(--dice-face-border-light);
+            --dice-face-shadow: var(--dice-face-shadow-light);
+            --dot-color: var(--dot-color-light);
+            --dot-shadow: var(--dot-shadow-light);
+            --dot-accent: var(--dot-accent-light);
+            --dice-shadow: var(--dice-shadow-light);
+
+            --button-bg: var(--button-bg-light);
+            --button-text: var(--button-text-light);
+            --button-hover: var(--button-hover-light);
+            --button-shadow: var(--button-shadow-light);
+
+            --control-bg: var(--control-bg-light);
+            --control-border: var(--control-border-light);
+            --sum-bg: var(--sum-bg-light);
+            --sum-border: var(--sum-border-light);
+        }
+
+        .dark-mode {
+            --bg-gradient: var(--bg-gradient-dark);
+            --card-bg: var(--card-bg-dark);
+            --card-border: var(--card-border-dark);
+            --felt-bg: var(--felt-bg-dark);
+            --felt-border: var(--felt-border-dark);
+            --felt-shadow: var(--felt-shadow-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+
+            --dice-face-bg: var(--dice-face-bg-dark);
+            --dice-face-border: var(--dice-face-border-dark);
+            --dice-face-shadow: var(--dice-face-shadow-dark);
+            --dot-color: var(--dot-color-dark);
+            --dot-shadow: var(--dot-shadow-dark);
+            --dot-accent: var(--dot-accent-dark);
+            --dice-shadow: var(--dice-shadow-dark);
+
+            --button-bg: var(--button-bg-dark);
+            --button-text: var(--button-text-dark);
+            --button-hover: var(--button-hover-dark);
+            --button-shadow: var(--button-shadow-dark);
+
+            --control-bg: var(--control-bg-dark);
+            --control-border: var(--control-border-dark);
+            --sum-bg: var(--sum-bg-dark);
+            --sum-border: var(--sum-border-dark);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
+            padding: 24px 16px;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
 
-        .light-mode {
-            --bg-color: var(--bg-color-light);
-            --text-color: var(--text-color-light);
-            --dice-bg: var(--dice-bg-light);
-            --dice-border: var(--dice-border-light);
-            --dot-color: var(--dot-color-light);
-            --button-bg: var(--button-bg-light);
-            --button-text: var(--button-text-light);
-            --button-hover: var(--button-hover-light);
-        }
-
-        .dark-mode {
-            --bg-color: var(--bg-color-dark);
-            --text-color: var(--text-color-dark);
-            --dice-bg: var(--dice-bg-dark);
-            --dice-border: var(--dice-border-dark);
-            --dot-color: var(--dot-color-dark);
-            --button-bg: var(--button-bg-dark);
-            --button-text: var(--button-text-dark);
-            --button-hover: var(--button-hover-dark);
-        }
-        
-        .bottom-controls {
+        /* Card Container */
+        .app-card {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 28px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05);
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            flex-direction: column;
+            gap: 24px;
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .main-content {
+        /* Top Header Bar */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--felt-border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            font-size: 28px;
+            line-height: 1;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+            user-select: none;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Standardized Icon Buttons */
+        .icon-button {
+            width: 42px;
+            height: 42px;
+            background: var(--control-bg);
+            border: 1px solid var(--control-border);
+            color: var(--text-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            padding: 0;
+            outline: none;
+        }
+
+        .icon-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-button:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .icon-button:focus-visible {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+        }
+
+        .icon-button svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        /* Flag SVGs in Language Button */
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            overflow: hidden;
+            display: block;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Stage / Table Felt Area */
+        .stage {
+            background: var(--felt-bg);
+            border: 1px solid var(--felt-border);
+            border-radius: 20px;
+            padding: 36px 16px 44px;
+            box-shadow: var(--felt-shadow);
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
+            justify-content: center;
+            min-height: 220px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
         }
 
+        .stage:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+        }
+
+        /* 3D Dice Container */
         .dice-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 40px;
-            margin-top: 20px; /* Added margin */
-            margin-bottom: 20px; /* Added margin */
-            perspective: 1000px;
-            min-height: 110px; /* Reserve space */
+            align-items: center;
+            gap: 32px 36px;
+            perspective: 1200px;
+            width: 100%;
         }
 
+        /* Individual Dice Wrapper & Casting Ground Shadow */
+        .dice-wrapper {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .dice-shadow {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            width: 76px;
+            height: 18px;
+            background: radial-gradient(ellipse at center, var(--dice-shadow) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 1.5s ease, filter 1.5s ease;
+            filter: blur(4px);
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dice-wrapper.is-rolling .dice-shadow {
+            transform: translateX(-50%) scale(1.45);
+            filter: blur(10px);
+            opacity: 0.25;
+        }
+
+        /* 3D Cube */
         .dice {
-            width: 100px;
-            height: 100px;
+            width: 96px;
+            height: 96px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.25, 1);
+            z-index: 2;
+        }
+
+        .dice-wrapper.is-rolling .dice {
+            animation: dice-elevation 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes dice-elevation {
+            0% { transform-origin: center center -48px; }
+            35% { margin-top: -32px; }
+            70% { margin-top: -12px; }
+            100% { margin-top: 0; }
         }
 
         .face {
             position: absolute;
-            width: 100px;
-            height: 100px;
-            background-color: var(--dice-bg);
-            border: 2px solid var(--dice-border);
-            border-radius: 10px;
+            width: 96px;
+            height: 96px;
+            background: var(--dice-face-bg);
+            border: 1px solid var(--dice-face-border);
+            box-shadow: var(--dice-face-shadow);
+            border-radius: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
             backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
+        /* Pips (Dots) */
         .dot {
-            width: 20px;
-            height: 20px;
-            background-color: var(--dot-color);
+            width: 18px;
+            height: 18px;
+            background: var(--dot-color);
+            box-shadow: var(--dot-shadow);
             border-radius: 50%;
             position: absolute;
         }
 
-        .front  { transform: translateZ(50px); }
-        .back   { transform: rotateY(180deg) translateZ(50px); }
-        .right  { transform: rotateY(90deg) translateZ(50px); }
-        .left   { transform: rotateY(-90deg) translateZ(50px); }
-        .top    { transform: rotateX(90deg) translateZ(50px); }
-        .bottom { transform: rotateX(-90deg) translateZ(50px); }
+        /* Distinct Red Center Pip on Face 1 (Classic Casino Style) */
+        .one .dot:nth-child(1) {
+            width: 22px;
+            height: 22px;
+            top: 37px;
+            left: 37px;
+            background: var(--dot-accent);
+        }
 
-        /* Dot positions */
-        .one .dot:nth-child(1) { top: 40px; left: 40px; }
-        .two .dot:nth-child(1) { top: 20px; left: 20px; }
+        /* 3D Face Transforms (Cube half-depth: 48px) */
+        .front  { transform: translateZ(48px); }
+        .back   { transform: rotateY(180deg) translateZ(48px); }
+        .right  { transform: rotateY(90deg) translateZ(48px); }
+        .left   { transform: rotateY(-90deg) translateZ(48px); }
+        .top    { transform: rotateX(90deg) translateZ(48px); }
+        .bottom { transform: rotateX(-90deg) translateZ(48px); }
+
+        /* Dot positions for 96x96px face */
+        .two .dot:nth-child(1) { top: 18px; left: 18px; }
         .two .dot:nth-child(2) { top: 60px; left: 60px; }
-        .three .dot:nth-child(1) { top: 20px; left: 20px; }
-        .three .dot:nth-child(2) { top: 40px; left: 40px; }
+
+        .three .dot:nth-child(1) { top: 18px; left: 18px; }
+        .three .dot:nth-child(2) { top: 39px; left: 39px; }
         .three .dot:nth-child(3) { top: 60px; left: 60px; }
-        .four .dot:nth-child(1) { top: 20px; left: 20px; }
-        .four .dot:nth-child(2) { top: 20px; left: 60px; }
-        .four .dot:nth-child(3) { top: 60px; left: 20px; }
+
+        .four .dot:nth-child(1) { top: 18px; left: 18px; }
+        .four .dot:nth-child(2) { top: 18px; left: 60px; }
+        .four .dot:nth-child(3) { top: 60px; left: 18px; }
         .four .dot:nth-child(4) { top: 60px; left: 60px; }
-        .five .dot:nth-child(1) { top: 20px; left: 20px; }
-        .five .dot:nth-child(2) { top: 20px; left: 60px; }
-        .five .dot:nth-child(3) { top: 40px; left: 40px; }
-        .five .dot:nth-child(4) { top: 60px; left: 20px; }
+
+        .five .dot:nth-child(1) { top: 18px; left: 18px; }
+        .five .dot:nth-child(2) { top: 18px; left: 60px; }
+        .five .dot:nth-child(3) { top: 39px; left: 39px; }
+        .five .dot:nth-child(4) { top: 60px; left: 18px; }
         .five .dot:nth-child(5) { top: 60px; left: 60px; }
-        .six .dot:nth-child(1) { top: 20px; left: 20px; }
-        .six .dot:nth-child(2) { top: 20px; left: 60px; }
-        .six .dot:nth-child(3) { top: 40px; left: 20px; }
-        .six .dot:nth-child(4) { top: 40px; left: 60px; }
-        .six .dot:nth-child(5) { top: 60px; left: 20px; }
+
+        .six .dot:nth-child(1) { top: 18px; left: 18px; }
+        .six .dot:nth-child(2) { top: 18px; left: 60px; }
+        .six .dot:nth-child(3) { top: 39px; left: 18px; }
+        .six .dot:nth-child(4) { top: 39px; left: 60px; }
+        .six .dot:nth-child(5) { top: 60px; left: 18px; }
         .six .dot:nth-child(6) { top: 60px; left: 60px; }
 
+        /* Total Sum Display */
+        .sum-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 46px;
+        }
+
+        #total-sum {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            padding: 8px 24px;
+            border-radius: 9999px;
+            background: var(--sum-bg);
+            border: 1px solid var(--sum-border);
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.2, 0.8, 0.25, 1);
+        }
+
+        #total-sum.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Controls Section */
         .controls {
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-top: 20px; /* Added margin */
-            padding: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 4px 0;
         }
 
-        button, select {
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: none;
+        .select-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--control-bg);
+            border: 1px solid var(--control-border);
+            border-radius: 14px;
+            padding: 6px 14px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .select-group:focus-within {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+        }
+
+        .select-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
+            white-space: nowrap;
         }
 
-        button {
-            background-color: var(--button-bg);
-            color: var(--button-text);
-        }
-
-        button:hover {
-            background-color: var(--button-hover);
-        }
-        
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .icon-button {
-            background-color: var(--button-bg);
-            color: var(--button-text);
+        select#dice-count {
+            appearance: none;
+            -webkit-appearance: none;
+            background: transparent;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 6px 24px 6px 4px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-            display: flex; /* Added for SVG centering */
-            align-items: center; /* Added for SVG centering */
-            justify-content: center; /* Added for SVG centering */
+            outline: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 2px center;
         }
 
-        .icon-button svg {
-            width: 24px; /* Adjust size as needed */
-            height: 24px; /* Adjust size as needed */
-        }
-        
-        #total-sum {
-            font-size: 24px;
-            font-weight: bold;
-            min-height: 30px; /* Reserve space */
+        /* Main Roll Button */
+        #roll-button {
+            background: var(--button-bg);
+            color: var(--button-text);
+            box-shadow: var(--button-shadow);
+            padding: 13px 32px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+            outline: none;
         }
 
+        #roll-button:hover:not(:disabled) {
+            background: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px -6px rgba(99, 102, 241, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        #roll-button:active:not(:disabled) {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        #roll-button:focus-visible {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45);
+        }
+
+        #roll-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+            filter: grayscale(0.15);
+        }
+
+        /* Keyboard / Click Tip */
+        .tip {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            opacity: 0.85;
+            letter-spacing: -0.01em;
+        }
+
+        .tip kbd {
+            background: var(--control-bg);
+            border: 1px solid var(--control-border);
+            border-bottom-width: 2px;
+            border-radius: 5px;
+            padding: 2px 6px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Legacy class compatibility */
+        .bottom-controls {
+            display: none;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 540px) {
+            .app-card {
+                padding: 20px 16px;
+                border-radius: 22px;
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 1.35rem;
+            }
+
+            .dice-container {
+                gap: 24px 20px;
+            }
+
+            .dice-wrapper, .dice, .face {
+                width: 80px;
+                height: 80px;
+            }
+
+            .face {
+                border-radius: 15px;
+            }
+
+            .front  { transform: translateZ(40px); }
+            .back   { transform: rotateY(180deg) translateZ(40px); }
+            .right  { transform: rotateY(90deg) translateZ(40px); }
+            .left   { transform: rotateY(-90deg) translateZ(40px); }
+            .top    { transform: rotateX(90deg) translateZ(40px); }
+            .bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+            .dot {
+                width: 15px;
+                height: 15px;
+            }
+
+            .one .dot:nth-child(1) { width: 18px; height: 18px; top: 31px; left: 31px; }
+            .two .dot:nth-child(1) { top: 15px; left: 15px; }
+            .two .dot:nth-child(2) { top: 50px; left: 50px; }
+            .three .dot:nth-child(1) { top: 15px; left: 15px; }
+            .three .dot:nth-child(2) { top: 32px; left: 32px; }
+            .three .dot:nth-child(3) { top: 50px; left: 50px; }
+            .four .dot:nth-child(1) { top: 15px; left: 15px; }
+            .four .dot:nth-child(2) { top: 15px; left: 50px; }
+            .four .dot:nth-child(3) { top: 50px; left: 15px; }
+            .four .dot:nth-child(4) { top: 50px; left: 50px; }
+            .five .dot:nth-child(1) { top: 15px; left: 15px; }
+            .five .dot:nth-child(2) { top: 15px; left: 50px; }
+            .five .dot:nth-child(3) { top: 32px; left: 32px; }
+            .five .dot:nth-child(4) { top: 50px; left: 15px; }
+            .five .dot:nth-child(5) { top: 50px; left: 50px; }
+            .six .dot:nth-child(1) { top: 15px; left: 15px; }
+            .six .dot:nth-child(2) { top: 15px; left: 50px; }
+            .six .dot:nth-child(3) { top: 32px; left: 15px; }
+            .six .dot:nth-child(4) { top: 32px; left: 50px; }
+            .six .dot:nth-child(5) { top: 50px; left: 15px; }
+            .six .dot:nth-child(6) { top: 50px; left: 50px; }
+
+            .dice-shadow {
+                width: 64px;
+                height: 14px;
+                bottom: -14px;
+            }
+
+            .controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .select-group, #roll-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body class="light-mode">
 
-    <div class="main-content">
-        <h1 data-lang-sv="Tärningskast" data-lang-en="Dice Roll">Tärningskast</h1>
-        <div id="dice-container" class="dice-container"></div>
-        <div id="total-sum"></div>
+    <div class="app-card">
+        <!-- Modern Header -->
+        <header class="header">
+            <div class="brand">
+                <span class="brand-icon">🎲</span>
+                <h1 data-lang-sv="Tärningskast" data-lang-en="Dice Roll">Tärningskast</h1>
+            </div>
+            <div class="header-controls">
+                <button id="sound-toggle" class="icon-button" title="Ljud på/av" aria-label="Toggle sound"></button>
+                <button id="lang-toggle" class="icon-button" title="Switch language" aria-label="Toggle language"></button>
+                <button id="theme-toggle" class="icon-button" title="Växla tema" aria-label="Toggle theme"></button>
+            </div>
+        </header>
 
+        <!-- Dice Rolling Felt Arena -->
+        <div class="stage" id="stage" title="Klicka för att kasta">
+            <div id="dice-container" class="dice-container"></div>
+        </div>
+
+        <!-- Sum Display -->
+        <div class="sum-container">
+            <div id="total-sum"></div>
+        </div>
+
+        <!-- Controls -->
         <div class="controls">
-            <label for="dice-count" data-lang-sv="Antal tärningar:" data-lang-en="Number of dice:">Antal tärningar:</label>
-            <select id="dice-count">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
+            <div class="select-group">
+                <label for="dice-count" data-lang-sv="Antal tärningar:" data-lang-en="Number of dice:">Antal tärningar:</label>
+                <select id="dice-count">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
             <button id="roll-button" data-lang-sv="🎲 Kasta" data-lang-en="🎲 Roll">🎲 Kasta</button>
         </div>
-        <div class="bottom-controls">
-            <button id="lang-toggle" class="icon-button" title="Switch language"></button>
-            <button id="theme-toggle" class="icon-button">🌙</button>
+
+        <!-- Helpful Shortcut Tip -->
+        <div class="tip" data-lang-sv="Tips: Tryck på <kbd>Mellanslag</kbd> eller klicka på bordet för att kasta" data-lang-en="Tip: Press <kbd>Space</kbd> or click the table to roll">
+            Tips: Tryck på <kbd>Mellanslag</kbd> eller klicka på bordet för att kasta
         </div>
+
+        <!-- Retained for backward-compatibility if referenced -->
+        <div class="bottom-controls"></div>
+    </div>
 
     <script>
         const diceContainer = document.getElementById('dice-container');
@@ -231,7 +679,9 @@
         const diceCountSelect = document.getElementById('dice-count');
         const themeToggle = document.getElementById('theme-toggle');
         const langToggle = document.getElementById('lang-toggle');
+        const soundToggle = document.getElementById('sound-toggle');
         const totalSumDiv = document.getElementById('total-sum');
+        const stage = document.getElementById('stage');
 
         const faceClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
         const faceRotations = {
@@ -251,24 +701,129 @@
         };
 
         let currentLang = 'sv';
+        let soundEnabled = true;
+        let audioCtx = null;
 
-        // SVG for flags
-        const ukFlagSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
-  <rect width="600" height="300" fill="#00247d"/>
-  <path d="M0 0l600 300M600 0L0 300" stroke="#fff" stroke-width="60"/>
-  <path d="M0 0l600 300M600 0L0 300" stroke="#c8102e" stroke-width="40"/>
-  <path d="M300 0v300M0 150h600" stroke="#fff" stroke-width="100"/>
-  <path d="M300 0v300M0 150h600" stroke="#c8102e" stroke-width="60"/>
-</svg>`;
-        const swedishFlagSVG = `<svg width="160" height="100" viewBox="0 0 160 100">
-  <rect width="160" height="100" fill="#006AA7"/>
-  <rect x="70" y="0" width="20" height="100" fill="#FECC00"/>
-  <rect x="0" y="40" width="160" height="20" fill="#FECC00"/>
-</svg>`;
+        // Clean, crisp SVG icons
+        const ukFlagSVG = `<svg class="flag-icon" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+            <clipPath id="uk-clip"><rect width="60" height="30" rx="3"/></clipPath>
+            <g clip-path="url(#uk-clip)">
+                <rect width="60" height="30" fill="#012169"/>
+                <path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/>
+                <path d="M0 0L60 30M60 0L0 30" stroke="#C8102E" stroke-width="4"/>
+                <path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/>
+                <path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/>
+            </g>
+        </svg>`;
+
+        const swedishFlagSVG = `<svg class="flag-icon" viewBox="0 0 60 37.5" xmlns="http://www.w3.org/2000/svg">
+            <clipPath id="se-clip"><rect width="60" height="37.5" rx="3"/></clipPath>
+            <g clip-path="url(#se-clip)">
+                <rect width="60" height="37.5" fill="#006aa7"/>
+                <rect x="18.75" y="0" width="7.5" height="37.5" fill="#fecc00"/>
+                <rect x="0" y="15" width="60" height="7.5" fill="#fecc00"/>
+            </g>
+        </svg>`;
+
+        const sunSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>`;
+
+        const moonSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>`;
+
+        const soundOnSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>`;
+
+        const soundOffSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>`;
+
+        // Pure Web Audio procedural sound synthesis (0 external assets!)
+        function playRollSound() {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
+                const clicks = 6 + Math.floor(Math.random() * 4);
+                
+                // Tumbling clatters
+                for (let i = 0; i < clicks; i++) {
+                    const clickTime = now + (i * 0.12) + (Math.random() * 0.04);
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    const filter = audioCtx.createBiquadFilter();
+
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(200 + Math.random() * 150, clickTime);
+                    osc.frequency.exponentialRampToValueAtTime(50, clickTime + 0.05);
+
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(900, clickTime);
+
+                    gain.gain.setValueAtTime(0.18, clickTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, clickTime + 0.05);
+
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(clickTime);
+                    osc.stop(clickTime + 0.06);
+                }
+
+                // Final satisfying landing thud
+                const landTime = now + 1.42;
+                const thudOsc = audioCtx.createOscillator();
+                const thudGain = audioCtx.createGain();
+
+                thudOsc.type = 'sine';
+                thudOsc.frequency.setValueAtTime(120, landTime);
+                thudOsc.frequency.exponentialRampToValueAtTime(35, landTime + 0.12);
+
+                thudGain.gain.setValueAtTime(0.26, landTime);
+                thudGain.gain.exponentialRampToValueAtTime(0.001, landTime + 0.12);
+
+                thudOsc.connect(thudGain);
+                thudGain.connect(audioCtx.destination);
+
+                thudOsc.start(landTime);
+                thudOsc.stop(landTime + 0.13);
+            } catch (e) {
+                // AudioContext gracefully ignored if restricted
+            }
+        }
 
         function createDice(value) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('dice-wrapper');
+
+            const shadow = document.createElement('div');
+            shadow.classList.add('dice-shadow');
+            wrapper.appendChild(shadow);
+
             const dice = document.createElement('div');
             dice.classList.add('dice');
+
             for (let i = 1; i <= 6; i++) {
                 const face = document.createElement('div');
                 face.classList.add('face', faceClasses[i - 1]);
@@ -286,8 +841,10 @@
                 }
                 dice.appendChild(face);
             }
+
             setDiceValue(dice, value);
-            return dice;
+            wrapper.appendChild(dice);
+            return wrapper;
         }
 
         function setDiceValue(dice, value) {
@@ -297,22 +854,33 @@
         }
 
         function rollDice() {
+            if (rollButton.disabled) return;
+            const diceWrappers = diceContainer.querySelectorAll('.dice-wrapper');
             const diceElements = diceContainer.querySelectorAll('.dice');
             let totalSum = 0;
             rollButton.disabled = true;
 
-            diceElements.forEach(dice => {
+            // Audio & visual lift state
+            playRollSound();
+            totalSumDiv.classList.remove('visible');
+
+            diceWrappers.forEach(wrapper => {
+                wrapper.classList.add('is-rolling');
+            });
+
+            diceElements.forEach((dice, index) => {
                 const randomValue = Math.floor(Math.random() * 6) + 1;
                 totalSum += randomValue;
 
                 const finalRotation = faceRotations[randomValue];
-                const randomXRotations = (Math.floor(Math.random() * 4) + 4) * 360;
-                const randomYRotations = (Math.floor(Math.random() * 4) + 4) * 360;
+                // Natural multi-spin variations for each die
+                const randomXRotations = (Math.floor(Math.random() * 3) + 4) * 360;
+                const randomYRotations = (Math.floor(Math.random() * 3) + 4) * 360;
 
                 const newX = finalRotation.x + randomXRotations;
                 const newY = finalRotation.y + randomYRotations;
 
-                dice.style.transition = 'transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                dice.style.transition = 'transform 1.5s cubic-bezier(0.2, 0.8, 0.25, 1)';
                 dice.style.transform = `rotateX(${newX}deg) rotateY(${newY}deg)`;
 
                 setTimeout(() => {
@@ -322,11 +890,17 @@
             });
 
             setTimeout(() => {
+                diceWrappers.forEach(wrapper => {
+                    wrapper.classList.remove('is-rolling');
+                });
+
                 if (diceElements.length > 1) {
                     const sumText = translations['Summa:'][currentLang];
                     totalSumDiv.textContent = `${sumText} ${totalSum}`;
+                    totalSumDiv.classList.add('visible');
                 } else {
                     totalSumDiv.textContent = '';
+                    totalSumDiv.classList.remove('visible');
                 }
                 rollButton.disabled = false;
             }, 1550);
@@ -335,7 +909,8 @@
         function updateDiceCount() {
             diceContainer.innerHTML = '';
             totalSumDiv.textContent = '';
-            const count = parseInt(diceCountSelect.value);
+            totalSumDiv.classList.remove('visible');
+            const count = parseInt(diceCountSelect.value, 10);
             for (let i = 0; i < count; i++) {
                 diceContainer.appendChild(createDice(1));
             }
@@ -348,43 +923,85 @@
                 const key = el.dataset.langSv;
                 if (translations[key] && translations[key][lang]) {
                     el.textContent = translations[key][lang];
-                } else {
-                     el.textContent = el.dataset[`lang-${lang}`];
+                } else if (el.dataset[`lang-${lang}`]) {
+                    el.innerHTML = el.dataset[`lang-${lang}`];
                 }
             });
-             // Manually update sum text if it exists
+
+            // Update sum text if present
             if (totalSumDiv.textContent) {
                 const currentSum = totalSumDiv.textContent.split(' ').pop();
                 const sumText = translations['Summa:'][currentLang];
                 totalSumDiv.textContent = `${sumText} ${currentSum}`;
             }
+
+            // Update language toggle icon and title
+            langToggle.innerHTML = currentLang === 'sv' ? ukFlagSVG : swedishFlagSVG;
+            langToggle.title = currentLang === 'sv' ? 'Switch to English' : 'Växla till svenska';
+            
+            // Update sound & theme button titles
+            updateSoundButton();
+            updateThemeButton();
+            // Update stage title
+            stage.title = currentLang === 'sv' ? 'Klicka för att kasta' : 'Click to roll';
         }
 
+        function updateThemeButton() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            themeToggle.innerHTML = isDarkMode ? sunSVG : moonSVG;
+            themeToggle.title = isDarkMode 
+                ? (currentLang === 'sv' ? 'Växla till ljust läge' : 'Switch to light mode')
+                : (currentLang === 'sv' ? 'Växla till mörkt läge' : 'Switch to dark mode');
+        }
+
+        function updateSoundButton() {
+            soundToggle.innerHTML = soundEnabled ? soundOnSVG : soundOffSVG;
+            soundToggle.title = soundEnabled
+                ? (currentLang === 'sv' ? 'Stäng av ljud' : 'Mute sound')
+                : (currentLang === 'sv' ? 'Slå på ljud' : 'Unmute sound');
+        }
+
+        // Event Listeners
         rollButton.addEventListener('click', rollDice);
         diceCountSelect.addEventListener('change', updateDiceCount);
 
+        // Stage click triggers roll
+        stage.addEventListener('click', () => {
+            if (!rollButton.disabled) rollDice();
+        });
+
+        // Spacebar triggers roll
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target !== diceCountSelect) {
+                e.preventDefault();
+                if (!rollButton.disabled) rollDice();
+            }
+        });
+
+        // Theme Toggle
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             document.body.classList.toggle('light-mode');
-            
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+            updateThemeButton();
         });
 
+        // Language Toggle
         langToggle.addEventListener('click', () => {
             const newLang = currentLang === 'sv' ? 'en' : 'sv';
             setLanguage(newLang);
-            langToggle.innerHTML = newLang === 'sv' ? ukFlagSVG : swedishFlagSVG; // Using SVG
-            langToggle.title = newLang === 'sv' ? 'Switch to English' : 'Växla till svenska';
+        });
+
+        // Sound Toggle
+        soundToggle.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            updateSoundButton();
         });
 
         // Initial setup
         updateDiceCount();
         setLanguage(currentLang);
-        // Set initial flag and title based on currentLang
-        langToggle.innerHTML = currentLang === 'sv' ? ukFlagSVG : swedishFlagSVG;
-        langToggle.title = currentLang === 'sv' ? 'Switch to English' : 'Växla till svenska';
-
+        updateThemeButton();
+        updateSoundButton();
     </script>
 </body>
 </html>
