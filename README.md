@@ -8,4 +8,4 @@ A simple and interactive dice roller application built with HTML, CSS, and JavaS
 -   **Language Selection:** Switch between Swedish (🇸🇪) and English (🇬🇧) interfaces.
 
 
-🎲 [Try the Dice Roller](https://htmlpreview.github.io/?https://github.com/hakimsjo/diceRoller/blob/master/index.html)
+🎲 [Try the Dice Roller](https://htmlpreview.github.io/?https://github.com/hakimsjo/dice-roller/blob/main/index.html)
